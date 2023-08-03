@@ -9,8 +9,8 @@ k = 7
 for i in range(numbers):
     for j in range(numbers):
         if(k == (i + j)):
-            return true
-return false
+            return True
+return False
 
 ```
 
