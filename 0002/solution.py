@@ -1,10 +1,17 @@
-import numpy as np
-
 def DCP2(numbers = [1, 2, 3, 4, 5]):
-    product = np.prod(numbers)
+    n = len(numbers)
+    products = [1] * n
     
-    products = []
-    for i in range(len(numbers)):
-        products.append(int(product / numbers[i]))
+    # Calculating left products
+    left_product = 1
+    for i in range(n):
+        products[i] *= left_product
+        left_product *= numbers[i]
+    
+    # Calculating right products
+    right_product = 1
+    for i in reversed(range(n)):
+        products[i] *= right_product
+        right_product *= numbers[i]
     
     return products
