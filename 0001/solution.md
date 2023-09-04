@@ -11,7 +11,6 @@ for i in range(numbers):
         if(k == (i + j)):
             return True
 return False
-
 ```
 
 So trying to not execute repeated operations, the idea is iterate the second ```for``` only in the not iterated numbers by the first ```for``` resulting in the next function:
