@@ -4,24 +4,39 @@ class Node:
         self.left = left
         self.right = right
         
-    def serialize(self):
-        # Caso: Cuando la raíz no tienen ningún hijo
-        if (self.left == None) and (self.right == None):
-            return '(' + str(self.val) + '()())'
-        
-        # Caso: Cuando la raíz tiene sólo el hijo izquierdo
-        if (self.left != None) and (self.right == None):
-            return '(' + str(self.val) + str(self.left.serialize()) + '())'
-        
-        # Caso: Cuando la raíz tiene sólo el hijo derecho
-        if (self.left != None) and (self.right == None):
-            return '(' + str(self.val) + "()" + str(self.right.serialize()) + ')'
-        
-        # Caso: Cuando la raíz sí tiene ambos hijos
-        return '(' + str(self.val) + str(self.left.serialize()) + str(self.right.serialize()) + ')'
-    #def deserialize():
-        
-node = Node('root', Node('left', Node('left.left')), Node('right'))
-print(node.serialize())
+def serialize(node):
+    response = [node.val]
+    # Analizando hijo izquierdo
+    if (node.left == None):
+        response.append([])
+    else:
+        response.append(serialize(node.left))
+    
+    # Analizando hijo derecho
+    if (node.right == None):
+        response.append([])
+    else:
+        response.append(serialize(node.right))
+    
+    return response
 
-#assert deserialize(serialize(node)).left.left.val == 'left.left'
+def deserialize(node):
+    response = Node(node[0])
+    
+    # Analizando hijo izquierdo
+    if len(node[1]) == 0:
+        response.left = None
+    else:
+        response.left = deserialize(node[1])
+    
+    # Analizando hijo derecho
+    if len(node[2]) == 0:
+        response.right = None
+    else:
+        response.right = deserialize(node[2])
+    
+    return response
+
+node = Node('root', Node('left', Node('left.left')), Node('right'))
+
+assert deserialize(serialize(node)).left.left.val == 'left.left'
