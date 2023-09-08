@@ -6,13 +6,13 @@ class Node:
         
 def serialize(node):
     response = [node.val]
-    # Analizando hijo izquierdo
+    # Analyzing left node
     if (node.left == None):
         response.append([])
     else:
         response.append(serialize(node.left))
     
-    # Analizando hijo derecho
+    # Analyzing right node
     if (node.right == None):
         response.append([])
     else:
@@ -23,13 +23,13 @@ def serialize(node):
 def deserialize(node):
     response = Node(node[0])
     
-    # Analizando hijo izquierdo
+    # Analyzing left node
     if len(node[1]) == 0:
         response.left = None
     else:
         response.left = deserialize(node[1])
     
-    # Analizando hijo derecho
+    # Analyzing right node
     if len(node[2]) == 0:
         response.right = None
     else:
@@ -38,5 +38,6 @@ def deserialize(node):
     return response
 
 node = Node('root', Node('left', Node('left.left')), Node('right'))
+print(serialize(node))
 
 assert deserialize(serialize(node)).left.left.val == 'left.left'
